@@ -1,4 +1,4 @@
-# Словарь для преобразования чисел словами в числа
+# словарь для преобразования чисел словами в числа
 dict_num = {
     "ноль": 0, "один": 1, "два": 2, "три": 3, "четыре": 4, "пять": 5,
     "шесть": 6, "семь": 7, "восемь": 8, "девять": 9, "десять": 10,
@@ -9,10 +9,10 @@ dict_num = {
     "девяносто": 90
 }
 
-# Преобразование чисел в строковом представлении
+# преобразование чисел в строковом представлении
 dict_str = {val: key for key, val in dict_num.items()}
 
-# Функция для перевода строкового числа в числовое
+# функция для перевода строкового числа в числовое
 def words_to_number(words):
     parts = words.split()
     if len(parts) == 1:
@@ -20,7 +20,7 @@ def words_to_number(words):
     elif len(parts) == 2:
         return dict_num[parts[0]] + dict_num[parts[1]]
 
-# Функция для перевода числового значения обратно в строку
+# функция для перевода числового значения обратно в строку
 def number_to_words(number):
     if number in dict_str:
         return dict_str[number]
@@ -28,7 +28,7 @@ def number_to_words(number):
     units = number % 10
     return f"{dict_str[tens]} {dict_str[units]}"
 
-# Преобразование выражения в обратную польскую нотацию (RPN)
+# преобразование выражения в обратную польскую нотацию (RPN)
 def to_rpn(tokens):
     precedence = {"плюс": 1, "минус": 1, "умножить": 2}
     output = []
@@ -51,7 +51,7 @@ def to_rpn(tokens):
         output.append(operators.pop())
     return output
 
-# Вычисление выражения в формате RPN
+# вычисление выражения в формате RPN
 def evaluate_rpn(rpn_tokens):
     stack = []
     for token in rpn_tokens:
@@ -68,21 +68,21 @@ def evaluate_rpn(rpn_tokens):
                 stack.append(a * b)
     return stack[0]
 
-# Главная функция
+# главная функция
 def calc(expression):
     # Замена текстовых скобок на обычные
     expression = expression.replace("скобка открывается", "(").replace("скобка закрывается", ")")
     tokens = expression.split()
     
-    # Преобразование в обратную польскую нотацию
+    # преобразование в обратную польскую нотацию
     rpn = to_rpn(tokens)
     
-    # Вычисление результата
+    # вычисление результата
     result = evaluate_rpn(rpn)
     
-    # Преобразование результата в текст
+    # преобразование результата в текст
     return number_to_words(result)
 
-# Пример использования
+# пример использования
 print(calc("пять плюс два умножить на три минус один"))  # десять
 print(calc("скобка открывается пять плюс двенадцать скобка закрывается умножить на два минус восемь"))  # двадцать шесть
